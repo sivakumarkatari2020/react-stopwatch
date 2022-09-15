@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-
+//stylesheets local
 import './style.css';
 import '../Globals/main.css';
-
+//Icons from react-icons
 import {TbFlag} from 'react-icons/tb';
 import {VscDebugStart,VscDebugRestart,VscDebugPause} from 'react-icons/vsc';
 
 function Stopwatch() {
+    //state to start,stop,time calculation and snaps
     const [isPaused, setIsPaused] = useState(true);
     const [time, setTime] = useState(0);
     const [snaps,setSnaps] = useState([]);
-    
+    //Hook to calculate the time based on isPaused
     React.useEffect(() => {
         let interval = null;
         
@@ -28,20 +29,20 @@ function Stopwatch() {
             clearInterval(interval);
         };
     }, [isPaused]);
-    
+    //function to start the timer
     const handleStart = () => {
         setIsPaused(false);
     };
-    
+    //function to pause the timer
     const handlePause = () => {
         setIsPaused(true);
     };
-    
+    //function to reset the timer
     const handleReset = () => {
         setTime(0);
         setSnaps([]);
     };
-
+    //function to take the snap
     const takeSnap = () => {
         let ti = time;
         setSnaps([...snaps,ti]);
@@ -49,10 +50,12 @@ function Stopwatch() {
 
     return (
         <div className='layout box-100 bg-secondary flex-column'>
+            {/* Header to add the details */}
             <div className='header box-100 flex-row line-shadow'><h3>Stop<span className='color-primary'>watch</span></h3></div>
             <div className='wrapper flex-column'>
                 <div className='section1 flex-row'>
                     <div className='timer flex-row' id='timer'>
+                        {/*span to add needle animation*/}
                         <span id='needle'></span>
                         <div className='stopwatch flex-row space-between'>
                             {
@@ -106,6 +109,7 @@ function Stopwatch() {
                     </div>
                 </div>
                 <div className='section2 flex-column'>
+                    {/* Container to show the snaps */}
                     <div className='snap-set flex-column mg-tp-1 mg-bt-1'>
                         {
                             snaps.map((snap,index) => <div className='snap flex-row space-between line-shadow'>
@@ -114,6 +118,7 @@ function Stopwatch() {
                             </div>)
                         }
                     </div>
+                    {/* Button set */}
                     <div className='control-set flex-row space-between'>
                         {
                             isPaused && time > 0
